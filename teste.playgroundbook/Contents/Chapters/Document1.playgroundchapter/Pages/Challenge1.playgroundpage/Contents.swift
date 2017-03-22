@@ -4,6 +4,9 @@
 //
 //  Copyright (c) 2016 Apple Inc. All Rights Reserved.
 //
+
+// O código aqui roda sempre que o usuário entra "Run Code"
+
 //#-end-hidden-code
 /*:
  Hello adventurer! This boy you see on your right is Leo, and he needs your help on his duties in the **numeric world**.
@@ -16,14 +19,16 @@
 */
 //#-hidden-code
 import PlaygroundSupport
+
 var movements = [[Int]]()
 func switchFlags(fromPosition flag1: Int, toPosition flag2: Int){
     movements.append([flag1,flag2])
 }
+
 //#-end-hidden-code
 
 //#-code-completion(everything, hide)
-//#-code-completion(identifier, show, switchFlags(flag1:flag2:))
+//#-code-completion(identifier, show, switchFlags(fromPosition:toPosition:))
 func reorderFlags(){
     //#-editable-code Tap to enter code
     switchFlags(fromPosition: 2, toPosition: 3)
@@ -37,10 +42,9 @@ func reorderFlags(){
     //#-end-editable-code
 }
 //#-hidden-code
-//let page = PlaygroundPage.current
-//page.needsIndefiniteExecution = true
-reorderFlags()
-runFlags(movements: movements)
+let page = PlaygroundPage.current
+page.needsIndefiniteExecution = true //Necessario para deixar a opção "Stop" no lugar de "Run Code"
+let listener = Listener(page: page) //Inicializa a classe para receber mensagens da LiveView (ver em Sources/Listener) (para nesse caso, por exemplo, saber quando tirar o "Stop" e colocar de volta o "Run Code"
+reorderFlags() //Chama a função completada pelo jogador para preencher movements
+runFlags(movements: movements) //Envia os movimentos para serem atualizados na LiveView (ver função runFlags em Sources/Commands.swift)
 //#-end-hidden-code
-//putFlags(upToNumber: /*#-editable-code */12/*#-end-editable-code*/)
-//movePlayer(leapSize: /*#-editable-code */2/*#-end-editable-code*/, leapQuant: /*#-editable-code */2/*#-end-editable-code*/)

@@ -12,9 +12,10 @@ import PlaygroundSupport
 
 public class GameScene: SKScene {
     
-    weak var messageSender : PlaygroundLiveViewMessageHandler!
+    /// Funciona como delegate para poder enviar mensagens de volta para a LiveView
+    weak var messageSender : GameView!
     
-    var player : SKSpriteNode!
+    var player : Player!
     
     let camNode = SKCameraNode()
     
@@ -40,6 +41,7 @@ public class GameScene: SKScene {
     
     private var isRunning : Bool = false
     
+    private var holdFlags : [Int]!
     private var flags = [Flag]()
     
     private var selectedFlag : Flag!
@@ -61,9 +63,9 @@ public class GameScene: SKScene {
         refWidth = 0.145*size.width
         numberDist = refWidth*1.25
         prepareBackground()
-        player = SKSpriteNode(color: UIColor.red, size: standing.first!.size())
+        player = Player()
         player.position = CGPoint(x: 0, y: 0)
-        player.zPosition = 1
+        player.zPosition = 5
         //prepareFlags(n: 10)
         addChild(player)
         //animateJump()
@@ -109,9 +111,17 @@ public class GameScene: SKScene {
             ])
     }
     
+    func cancel(){
+        player.removeAllActions()
+        player.reRunIdle()
+        if holdFlags != nil{
+            prepareFlags(numbers: holdFlags)
+        }
+    }
+    
     func runFlags(movs : [[Int]]){
         isRunning = true
-        let runningAction = SKAction.repeatForever(SKAction.animate(with: running, timePerFrame: 0.2))
+        let runningAction = SKAction.repeatForever(SKAction.animate(with: player.asset.running, timePerFrame: 0.2))
         player.run(runningAction, withKey: "run")
         var actions = [SKAction]()
         var lastP = player.position.x
@@ -135,19 +145,16 @@ public class GameScene: SKScene {
         }
         player.run(SKAction.sequence(actions)) {
             self.player.removeAction(forKey: "run")
+            self.messageSender?.sendMessage("finished")
         }
     }
     
     public func start(){
-        let playerWidth : CGFloat = refWidth//60
-        player.size = CGSize(width: playerWidth, height: size.height*playerWidth/size.width)
-        player.position.y = floor+player.size.height/2//80
-        let standingAnimation = SKAction.animate(with: standing, timePerFrame: 0.3)
-        let keepGoing = SKAction.repeatForever(standingAnimation)
-        player.run(keepGoing)
+        player.prepareSize(refWidth: refWidth, floor: floor)
     }
     
     public func prepareFlags(numbers : [Int]){
+        holdFlags = numbers
         for f in flags{
             f.removeFromParent()
         }
@@ -174,7 +181,7 @@ public class GameScene: SKScene {
     }
     
     func animateJump(){
-        let animationAction = SKAction.animate(with: jumping, timePerFrame: 1)
+        let animationAction = SKAction.animate(with: player.asset.jump, timePerFrame: 1)
         player.run(animationAction)
     }
     
@@ -188,7 +195,7 @@ public class GameScene: SKScene {
         var count = 0
         var actions = [SKAction]()
         let jumpDuration : TimeInterval = 1.4
-        let animationAction = SKAction.animate(with: jumping, timePerFrame: jumpDuration/2)
+        let animationAction = SKAction.animate(with: player.asset.jump, timePerFrame: jumpDuration/2)
         while count<numJumps{
             let moveUpAction = SKAction.moveBy(x: d, y: 100, duration: jumpDuration/2)
             let moveDownAction = SKAction.moveBy(x: d, y: -100, duration: jumpDuration/2)

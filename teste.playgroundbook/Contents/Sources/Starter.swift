@@ -9,6 +9,8 @@
 import SpriteKit
 import PlaygroundSupport
 
+/// Chamado a partir de LiveView.swift para preparar a LiveView
+
 public func startScene() -> GameScene{
     let skV = GameView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
     let scene = GameScene(size: skV.frame.size)
@@ -16,8 +18,8 @@ public func startScene() -> GameScene{
     skV.presentScene(scene)
     scene.scaleMode = .aspectFill
     let page = PlaygroundPage.current
-    page.liveView = skV
-    //page.needsIndefiniteExecution = true
+    page.liveView = skV  //Define essa GameView como LiveView da página atual
+    scene.messageSender = skV
     scene.start()
     return scene
 }

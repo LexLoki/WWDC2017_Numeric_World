@@ -28,6 +28,7 @@
 		FDACFD641E78D26400B010EF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDACFD631E78D26400B010EF /* GameView.swift */; };
 		FDCF744F1E7A52BA009F51BA /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF744E1E7A52BA009F51BA /* Speech.swift */; };
 		FDD17D051E765AFE0061DD15 /* ParallaxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD17D041E765AFE0061DD15 /* ParallaxNode.swift */; };
+		FDDB7A4A1E7C887500F14A79 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB7A491E7C887500F14A79 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		FDACFD631E78D26400B010EF /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		FDCF744E1E7A52BA009F51BA /* Speech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		FDD17D041E765AFE0061DD15 /* ParallaxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxNode.swift; sourceTree = "<group>"; };
+		FDDB7A491E7C887500F14A79 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,14 +89,13 @@
 		FD1893C11E71BC69009BDD8E /* SKPlaygroundActions */ = {
 			isa = PBXGroup;
 			children = (
+				FDDB7A4B1E7C8A1000F14A79 /* GameNodes */,
 				FD1893C21E71BC69009BDD8E /* AppDelegate.swift */,
 				FD1893C41E71BC69009BDD8E /* GameScene.sks */,
 				FD1893C61E71BC69009BDD8E /* Actions.sks */,
 				FD1893C81E71BC69009BDD8E /* GameScene.swift */,
 				FD96C7081E7BCA4C00A693C9 /* CharAssets.swift */,
 				FDCF744E1E7A52BA009F51BA /* Speech.swift */,
-				FD509E1F1E79CD4B005FC9A8 /* Goomba.swift */,
-				FDA3F9E41E7A08AD0056604A /* Flag.swift */,
 				FDA3F9DE1E79E7410056604A /* Extensions.swift */,
 				FDACFD631E78D26400B010EF /* GameView.swift */,
 				FD1545AA1E76BEE800951C19 /* Starter.swift */,
@@ -110,6 +111,16 @@
 				FD1893D41E71BC69009BDD8E /* Info.plist */,
 			);
 			path = SKPlaygroundActions;
+			sourceTree = "<group>";
+		};
+		FDDB7A4B1E7C8A1000F14A79 /* GameNodes */ = {
+			isa = PBXGroup;
+			children = (
+				FD509E1F1E79CD4B005FC9A8 /* Goomba.swift */,
+				FDA3F9E41E7A08AD0056604A /* Flag.swift */,
+				FDDB7A491E7C887500F14A79 /* Player.swift */,
+			);
+			name = GameNodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +207,7 @@
 				FD96C7091E7BCA4C00A693C9 /* CharAssets.swift in Sources */,
 				FDD17D051E765AFE0061DD15 /* ParallaxNode.swift in Sources */,
 				FD1893C91E71BC69009BDD8E /* GameScene.swift in Sources */,
+				FDDB7A4A1E7C887500F14A79 /* Player.swift in Sources */,
 				FD1893CB1E71BC69009BDD8E /* GameViewController.swift in Sources */,
 				FD509E201E79CD4B005FC9A8 /* Goomba.swift in Sources */,
 				FD1545AB1E76BEE800951C19 /* Starter.swift in Sources */,

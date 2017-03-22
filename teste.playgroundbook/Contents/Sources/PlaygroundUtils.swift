@@ -1,8 +1,18 @@
+//
+//  PlaygroundUtils.swift
+//  SKPlaygroundActions
+//
+//  Created by Pietro Ribeiro Pepe on 3/17/17.
+//  Copyright © 2017 Pietro Ribeiro Pepe. All rights reserved.
+//
+
 import Foundation
 import PlaygroundSupport
 
 extension PlaygroundValue {
-    func stringFromDict(withKey key: String) -> String? {
+    
+    ///Extrai string de um dicionario pv
+    public func stringFromDict(withKey key: String) -> String? {
         if case .dictionary(let dict) = self,
             let value = dict[key],
             case .string(let str) = value {
@@ -11,7 +21,8 @@ extension PlaygroundValue {
         return nil
     }
     
-    func integerFromDict(withKey key: String) -> Int? {
+    ///Extrai inteiro de um dicionario pv
+    public func integerFromDict(withKey key: String) -> Int? {
         if case .dictionary(let dict) = self,
             let value = dict[key],
             case .integer(let num) = value {
@@ -20,7 +31,8 @@ extension PlaygroundValue {
         return nil
     }
     
-    func arrayFromDict(withKey key: String) -> [PlaygroundValue]? {
+    ///Extrai array pv de um dicionario pv
+    public func arrayFromDict(withKey key: String) -> [PlaygroundValue]? {
         if case .dictionary(let dict) = self,
             let value = dict[key],
             case .array(let array) = value {
@@ -29,16 +41,27 @@ extension PlaygroundValue {
         return nil
     }
     
-    func toInt() -> Int?{
+    ///Extrai inteiro de pv
+    public func toInt() -> Int?{
         if case .integer(let num) = self{
             return num
         }
         return nil
     }
     
-    func toArray() -> [PlaygroundValue]?{
+    
+    ///Extrai array pv
+    public func toArray() -> [PlaygroundValue]?{
         if case .array(let array) = self{
             return array
+        }
+        return nil
+    }
+    
+    ///Extrai string de pv
+    public func toString() -> String?{
+        if case .string(let string) = self{
+            return string
         }
         return nil
     }

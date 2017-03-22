@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var player : SKSpriteNode!
+    var player : Player!
     
     let camNode = SKCameraNode()
     
@@ -41,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var isRunning = false
     
+    private var holdFlags : [Int]!
     private var flags = [Flag]()
     
     private var selectedFlag : Flag!
@@ -79,7 +80,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         refWidth = 0.145*size.width
         boxCeil = floor + 0.75*refWidth
         numberDist = refWidth*1.15
-        player = SKSpriteNode(color: UIColor.red, size: standing.first!.size())
+        player = Player()
         player.position = CGPoint(x: 0, y: 0)
         player.zPosition = 5
         //prepareFlags(n: 10)
@@ -89,6 +90,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Page setup
         prepareFlags(n: 10)
         //prepareFlags(numbers: [4,1,3,2])
+    }
+    
+    func start(){
+        player.prepareSize(refWidth: refWidth, floor: floor)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -105,19 +110,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         back.zPosition = -1
         addChild(back)
         background = back
-    }
-    
-    func start(){
-        let playerWidth : CGFloat = refWidth//60
-        player.size = CGSize(width: playerWidth, height: size.height*playerWidth/size.width)
-        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.size.width*0.7, height: player.size.height*0.7))
-        player.physicsBody!.contactTestBitMask = 1
-        player.physicsBody!.collisionBitMask = 0
-        player.physicsBody!.affectedByGravity = false
-        player.position.y = floor+player.size.height/2//80
-        let standingAnimation = SKAction.animate(with: standing, timePerFrame: 0.3)
-        let keepGoing = SKAction.repeatForever(standingAnimation)
-        player.run(keepGoing)
     }
     
     private func selectFlag(){
@@ -159,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func runFlags(movs : [[Int]]){
         isRunning = true
-        let runningAction = SKAction.repeatForever(SKAction.animate(with: running, timePerFrame: 0.2))
+        let runningAction = SKAction.repeatForever(SKAction.animate(with: player.asset.running, timePerFrame: 0.2))
         player.run(runningAction, withKey: "run")
         let flagSound = SKAction.playSoundFileNamed("pick2.mp3", waitForCompletion: false)
         var actions = [SKAction]()
@@ -188,9 +180,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.run(SKAction.sequence(actions)) {
             self.player.removeAction(forKey: "run")
         }
+        
     }
     
-    func prepareFlags(numbers : [Int]){
+    func prepareFlags( numbers : [Int]){
+        var numbers = numbers
+        if holdFlags != nil{
+            numbers = holdFlags
+        } else{
+            holdFlags = numbers
+        }
         for f in flags{
             f.removeFromParent()
         }
@@ -217,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func animateJump(){
-        let animationAction = SKAction.animate(with: jumping, timePerFrame: 1)
+        let animationAction = SKAction.animate(with: player.asset.jump, timePerFrame: 1)
         player.run(animationAction)
     }
     
@@ -226,7 +225,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var count = 0
         var actions = [SKAction]()
         let jumpDuration : TimeInterval = 1.4
-        let animationAction = SKAction.animate(with: jumping, timePerFrame: jumpDuration/2)
+        let animationAction = SKAction.animate(with: player.asset.jump, timePerFrame: jumpDuration/2)
         while count<numJumps{
             let moveUpAction = SKAction.moveBy(x: d, y: 130, duration: jumpDuration/2)
             let moveDownAction = SKAction.moveBy(x: d, y: -130, duration: jumpDuration/2)
@@ -243,11 +242,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        //moveJump()
-        runFlags(movs: [
+        if touches.first!.location(in: self).y > 0.4*size.height{
+            runFlags(movs: [
                 [4,3],
                 [6,1]
-        ])
+                ])
+        }
+        //moveJump()
         //check if touched character
     }
     

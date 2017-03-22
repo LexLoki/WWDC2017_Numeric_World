@@ -28,12 +28,12 @@ class CharAsset{
     ///Identifier of current character being used
     private static var currentAsset: Int = 0
     ///Prefixes of each character
-    private static let ids : [String] = ["b","g","r"]
+    private static let ids : [String] = ["b","r","m"]
     
     private init(id: String){
         idle = CharAsset.loadTextures(id,"i",2)
-        running = CharAsset.loadTextures(id,"r",2)
-        jump = CharAsset.loadTextures(id,"j",6)
+        running = CharAsset.loadTextures(id,"r",id=="m" ? 4 : 6)
+        jump = CharAsset.loadTextures(id,"j",2)
     }
     
     private class func loadTextures(_ id: String, _ type: String, _ count: Int) -> [SKTexture]{
