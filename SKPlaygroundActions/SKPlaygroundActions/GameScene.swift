@@ -56,7 +56,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func resize(_ nSize: CGSize){
-        print("HELLO")
         background.setSize(nSize)
         /*
         print(xScale,yScale)
@@ -76,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.didMove(to: view)
         physicsWorld.contactDelegate = self
         print(size.width)
-        floor = -0.28*size.height
+        floor = -0.28*size.height//-0.365234375*size.height
         refWidth = 0.145*size.width
         boxCeil = floor + 0.75*refWidth
         numberDist = refWidth*1.15
@@ -105,11 +104,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var nodes = [SKSpriteNode]()
+    var quant = 10
+    
+    func inicializarNo(){
+        //Cria um nó
+        let nd = SKSpriteNode(imageNamed: "Oval\(nodes.count+1)")
+        nodes.append(nd) //coloco no vetor
+        addChild(nd) //adiciono na cena
+        //.... faco o que mais quiser
+        if nodes.count < quant{ //se nao for o ultimo chamo a funcao de novo depois de 0.3 segundos
+            run(SKAction.sequence([SKAction.wait(forDuration: 0.3),SKAction.run {
+                self.inicializarNo()
+            }]))
+        }
+    }
+    
     func prepareBackground(){
         let back = ParallaxNode(texture: SKTexture(imageNamed: "background"), size: size)
         back.zPosition = -1
         addChild(back)
         background = back
+    }
+    
+    func setVoiceOver(_ isOn: Bool){
+        if !isOn{
+            removeAction(forKey: "voice")
+        }
+        FlagLabel.voiceOverEnabled = isOn
     }
     
     private func selectFlag(){
@@ -130,14 +152,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func pickFlag(_ flag: Flag) -> SKAction{
-        return SKAction.run {
+        let mov = SKAction.run {
+            flag.run(SKAction.moveTo(y: self.player.position.y, duration: 0.3))
+        }
+        let wait = SKAction.wait(forDuration: 0.34)
+        return SKAction.sequence([SKAction.group([wait,mov]),SKAction.run {
             self.selectedFlag = flag
             flag.removeFromParent()
             self.player.addChild(flag)
             flag.zPosition = -0.5
             flag.position.x = 0
             flag.position.y = 0
-        }
+            }
+        ])
     }
     
     private func getAction(_ pi: CGFloat, _ pf: CGFloat) -> SKAction{

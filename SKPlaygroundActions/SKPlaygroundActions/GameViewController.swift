@@ -13,6 +13,9 @@ import GameplayKit
 class GameViewController: UIViewController {
     
     var gv : GameView!
+    var isVoice = true
+    
+    var scene: GameScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +23,7 @@ class GameViewController: UIViewController {
         let gv = GameView(frame: view.frame)
         self.gv = gv
         // Load the SKScene from 'GameScene.sks'
-        let scene = GameScene(size: gv.frame.size)
+        scene = GameScene(size: gv.frame.size)
         // Set the scale mode to scale to fit the window
         //scene.scaleMode = SKSceneScaleMode.aspectFit
         
