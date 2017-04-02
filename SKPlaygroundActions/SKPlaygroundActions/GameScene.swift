@@ -89,6 +89,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Page setup
         prepareFlags(n: 10)
         //prepareFlags(numbers: [4,1,3,2])
+        
+        playMusic(path: "Little, happy tune.mp3")
+    }
+    
+    func playMusic(path : String){
+        run(SKAction.repeatForever(SKAction.playSoundFileNamed(path, waitForCompletion: true)), withKey: "audio")
     }
     
     func start(){
@@ -132,6 +138,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             removeAction(forKey: "voice")
         }
         FlagLabel.voiceOverEnabled = isOn
+    }
+    
+    func verifyFlags() -> Bool{
+        for i in 0..<flags.count{
+            if flags[i].number != i+1{
+                return false
+            }
+        }
+        return true
     }
     
     private func selectFlag(){

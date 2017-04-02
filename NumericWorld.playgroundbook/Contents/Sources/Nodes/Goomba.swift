@@ -23,7 +23,7 @@ class Goomba : SKNode{
         SKTexture(imageNamed: "frame_e-8")
     ]
     
-    private static let sound = SKAction.playSoundFileNamed("Boup.wav", waitForCompletion: true)
+    private static let sound = SKAction.playSoundFileNamed("Audio/Boup.wav", waitForCompletion: true)
     
     private let spriteNode : SKSpriteNode
     

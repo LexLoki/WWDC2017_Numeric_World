@@ -37,6 +37,8 @@
 		FDA3F9E31E7A07C30056604A /* Boup.wav in Resources */ = {isa = PBXBuildFile; fileRef = FDA3F9E21E7A07C30056604A /* Boup.wav */; };
 		FDA3F9E51E7A08AD0056604A /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA3F9E41E7A08AD0056604A /* Flag.swift */; };
 		FDACFD641E78D26400B010EF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDACFD631E78D26400B010EF /* GameView.swift */; };
+		FDBD4A711E9072D200D49669 /* Little, happy tune.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FDBD4A701E9072D200D49669 /* Little, happy tune.mp3 */; };
+		FDBD4A751E9076CB00D49669 /* bleep sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FDBD4A741E9076CB00D49669 /* bleep sound.mp3 */; };
 		FDCF744F1E7A52BA009F51BA /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF744E1E7A52BA009F51BA /* Speech.swift */; };
 		FDD17D051E765AFE0061DD15 /* ParallaxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD17D041E765AFE0061DD15 /* ParallaxNode.swift */; };
 		FDDB7A4A1E7C887500F14A79 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDB7A491E7C887500F14A79 /* Player.swift */; };
@@ -75,6 +77,8 @@
 		FDA3F9E21E7A07C30056604A /* Boup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Boup.wav; sourceTree = "<group>"; };
 		FDA3F9E41E7A08AD0056604A /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		FDACFD631E78D26400B010EF /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		FDBD4A701E9072D200D49669 /* Little, happy tune.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Little, happy tune.mp3"; sourceTree = "<group>"; };
+		FDBD4A741E9076CB00D49669 /* bleep sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bleep sound.mp3"; sourceTree = "<group>"; };
 		FDCF744E1E7A52BA009F51BA /* Speech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		FDD17D041E765AFE0061DD15 /* ParallaxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxNode.swift; sourceTree = "<group>"; };
 		FDDB7A491E7C887500F14A79 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -122,10 +126,12 @@
 				FDA3F9DE1E79E7410056604A /* Extensions.swift */,
 				FDACFD631E78D26400B010EF /* GameView.swift */,
 				FD7CA4911E834DC600CC43E6 /* IDouble.swift */,
+				FDBD4A741E9076CB00D49669 /* bleep sound.mp3 */,
 				FD1545AA1E76BEE800951C19 /* Starter.swift */,
 				FDD17D041E765AFE0061DD15 /* ParallaxNode.swift */,
 				FDA3F9E01E7A07520056604A /* Jump.wav */,
 				FD96C7061E7BC52E00A693C9 /* pick2.mp3 */,
+				FDBD4A701E9072D200D49669 /* Little, happy tune.mp3 */,
 				FD96C7041E7BC4BF00A693C9 /* pick.mp3 */,
 				FDA3F9E21E7A07C30056604A /* Boup.wav */,
 				FD1893CA1E71BC69009BDD8E /* GameViewController.swift */,
@@ -238,7 +244,9 @@
 				FD1B54C31E84F37A00DCCB8B /* 2.mp3 in Resources */,
 				FDA3F9E31E7A07C30056604A /* Boup.wav in Resources */,
 				FD1B54C51E84F37A00DCCB8B /* 4.mp3 in Resources */,
+				FDBD4A751E9076CB00D49669 /* bleep sound.mp3 in Resources */,
 				FD1B54C41E84F37A00DCCB8B /* 3.mp3 in Resources */,
+				FDBD4A711E9072D200D49669 /* Little, happy tune.mp3 in Resources */,
 				FD1B54C91E84F37A00DCCB8B /* 8.mp3 in Resources */,
 				FD1893C71E71BC69009BDD8E /* Actions.sks in Resources */,
 				FD1B54C81E84F37A00DCCB8B /* 7.mp3 in Resources */,

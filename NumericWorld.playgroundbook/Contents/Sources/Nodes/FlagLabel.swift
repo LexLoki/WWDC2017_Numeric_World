@@ -21,8 +21,7 @@ class FlagLabel : SKLabelNode{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         if FlagLabel.voiceOverEnabled{
-            print("hello")
-            run(SKAction.playSoundFileNamed("\(self.text!).mp3", waitForCompletion: false))
+            run(SKAction.playSoundFileNamed("Audio/Voice/\(self.text!).mp3", waitForCompletion: false))
         }
     }
     

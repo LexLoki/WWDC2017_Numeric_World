@@ -40,7 +40,7 @@ class GameView : SKView{
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        _scene.resize(frame.size)
+        //_scene.resize(frame.size)
         vb.frame = CGRect(x:0.01*frame.width,y: 0.01*frame.height,width: 0.17*frame.width,height: 0.17*frame.height)
     }
     

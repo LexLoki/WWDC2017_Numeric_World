@@ -5,27 +5,24 @@
 //  Copyright (c) 2016 Pietro Ribeiro Pepe. All Rights Reserved.
 //
 
-// O código aqui roda sempre que o usuário entra "Run Code"
-
 //#-end-hidden-code
 /*:
  Hello adventurer! This boy you see on your right is Leo, and he needs your help on his duties in the **numeric world**.
  
  In the **numeric world**, is important for people to walk through numbers in ascending order. Sadly, sometimes heavy storms mess them around, giving us a wrong order. Could you help Leo fix them?
- * callout(Tip):
- Want to change your character? Tap on Leo to chose a new look.
  
  **Challenge:** Reorder the flags by completing the function.
  
- As you can see (by dragging your finger on the screen) the numbers on the flags are not in ascending order as they should be. You can switch the flags by their positions using the command `switchFlags(fromPosition: Int, toPosition: Int)`. Below there is a function `reorderFlags` you should complete, using this command, to help Leo. Don't worry about doing it wrong, you can change the function as long as you want to and try again.
+ As you can see (by dragging your finger) the numbers on the flags are not in ascending order as they should be. You can switch the flags by their positions using the command `switchFlags(fromPosition: Int, toPosition: Int)`. Below there is a function `reorderFlags` you should complete, using this command, to help Leo. Don't worry about doing it wrong, you can change the function as long as you want to and try again.
+ * callout(Tip):
+ Want to change your character? Tap on Leo to chose a new look.
 */
 //#-hidden-code
 import PlaygroundSupport
 
 var movements = [[Int]]()
 func switchFlags(fromPosition flag1: Int, toPosition flag2: Int){
-    assert(flag1>0 && flag1<5 && flag2>0 && flag2<5, "The positions should be values between 1 and 4")
-    movements.append([flag1-1,flag2-1])
+    movements.append([flag1,flag2])
 }
 
 //#-end-hidden-code

@@ -12,6 +12,8 @@ class Player : SKSpriteNode{
     
     private(set) var asset: CharAsset!
     
+    private let switchSound = SKAction.playSoundFileNamed("bleep sound.mp3", waitForCompletion: false)
+    
     var isEnabledCharSwitch = true
     
     init(){
@@ -51,6 +53,7 @@ class Player : SKSpriteNode{
         if isEnabledCharSwitch{
             asset = CharAsset.changeAsset()
             reRunIdle()
+            run(switchSound)
         }
     }
     

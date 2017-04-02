@@ -22,20 +22,11 @@ public class GameScene: SKScene {
     /// Distance between numbers
     var numberDist : CGFloat = 100
     
-    /// Idle textures
-    let standing : [SKTexture] = [SKTexture(imageNamed: "frame-1"),SKTexture(imageNamed: "frame-2")]
-    
-    /// Jump and fall textures
-    let jumping : [SKTexture] = [SKTexture(imageNamed: "jump_up"),SKTexture(imageNamed: "jump_fall")]
-    
     /// The height where the player feet should land
     var floor : CGFloat!
     
     /// Reference width for player
     var refWidth : CGFloat!
-    
-    /// Running textures
-    let running : [SKTexture] = [SKTexture(imageNamed: "frame_r-1"),SKTexture(imageNamed: "frame_r-2"),SKTexture(imageNamed: "frame_r-3"),SKTexture(imageNamed: "frame_r-4"),SKTexture(imageNamed: "frame_r-5"),SKTexture(imageNamed: "frame_r-6")]
     
     var background : ParallaxNode!
     
@@ -69,6 +60,12 @@ public class GameScene: SKScene {
         //prepareFlags(n: 10)
         addChild(player)
         //animateJump()
+        
+        playMusic(path: "Audio/Little, happy tune.mp3")
+    }
+    
+    func playMusic(path : String){
+        run(SKAction.repeatForever(SKAction.playSoundFileNamed(path, waitForCompletion: true)), withKey: "audio")
     }
     
     func setVoiceOver(_ isOn: Bool){
@@ -157,7 +154,7 @@ public class GameScene: SKScene {
         isRunning = true
         let runningAction = SKAction.repeatForever(SKAction.animate(with: player.asset.running, timePerFrame: 0.2))
         player.run(runningAction, withKey: "run")
-        let flagSound = SKAction.playSoundFileNamed("pick2.mp3", waitForCompletion: false)
+        let flagSound = SKAction.playSoundFileNamed("Audio/pick2.mp3", waitForCompletion: false)
         var actions = [SKAction]()
         var lastP = player.position.x
         for m in movs{
@@ -185,6 +182,15 @@ public class GameScene: SKScene {
         }
     }
     
+    func verifyFlags() -> Bool{
+        for i in 0..<flags.count{
+            if flags[i].number != i+1{
+                return false
+            }
+        }
+        return true
+    }
+    
     public func start(){
         player.prepareSize(refWidth: refWidth, floor: floor)
     }
@@ -210,7 +216,7 @@ public class GameScene: SKScene {
     
     public func prepareFlags(n : Int){
         var numbers = [Int]()
-        for i in 0...n{
+        for i in 1...n{
             numbers.append(i)
         }
         prepareFlags(numbers : numbers)

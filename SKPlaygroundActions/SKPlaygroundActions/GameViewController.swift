@@ -30,7 +30,6 @@ class GameViewController: UIViewController {
         // Present the scene
         gv.presentScene(scene)
         
-        
         gv.ignoresSiblingOrder = true
         view.autoresizesSubviews = true
         gv.showsFPS = true
