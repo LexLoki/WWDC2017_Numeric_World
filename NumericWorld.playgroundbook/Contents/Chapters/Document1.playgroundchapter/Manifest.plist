@@ -7,7 +7,7 @@
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
 	<key>Name</key>
-	<string>Commands</string>
+	<string>The World</string>
 	<key>Pages</key>
 	<array>
 		<string>Challenge1.playgroundpage</string>

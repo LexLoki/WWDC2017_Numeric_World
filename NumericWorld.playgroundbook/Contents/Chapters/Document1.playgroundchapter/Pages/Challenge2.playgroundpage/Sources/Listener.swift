@@ -1,6 +1,5 @@
 import PlaygroundSupport
-///Classe implementando o protocolo necessario para receber mensagens da LiveView
-/// Documentação: https://developer.apple.com/library/content/documentation/Xcode/Conceptual/swift_playgrounds_doc_format/PlaygroundRemoteLiveViewProxyDelegateProtocol.html#//apple_ref/doc/uid/TP40017343-CH43-SW1
+
 public class Listener : PlaygroundRemoteLiveViewProxyDelegate {
     
     private weak var page : PlaygroundPage?
@@ -8,18 +7,28 @@ public class Listener : PlaygroundRemoteLiveViewProxyDelegate {
     public init(page : PlaygroundPage){
         self.page = page
         if let proxy = page.liveView as? PlaygroundRemoteLiveViewProxy{
-            proxy.delegate = self //Mensagens enviadas para essa page serão passadas para esse objeto
+            proxy.delegate = self
         }
     }
     
     public func remoteLiveViewProxyConnectionClosed(_ remoteLiveViewProxy: PlaygroundRemoteLiveViewProxy){
     }
     
-    /// Método que recebe mensagens enviadas pela LiveView (no caso GameView)
     public func remoteLiveViewProxy(_ remoteLiveViewProxy: PlaygroundRemoteLiveViewProxy, received message: PlaygroundValue){
-        let msg = message.toString()!
+        let msg = message.stringFromDict(withKey: "message")!
         if msg == "finished"{
-            page?.finishExecution() //Para deixar o runCode voltar
+            page?.finishExecution()
+        }
+        else if msg == "assert"{
+            let status = message.integerFromDict(withKey: "status")!
+            if status == 0{
+                page?.assessmentStatus = .pass(message: "### Well jumped 👍! You have successfully beaten the jump game!\nFeel free to try different combinations of jumps.\n Hope you enjoyed ❤️")
+            }
+            else{
+                let str = status == -1 ? "You went too far to the left. Try moving to the right more." : status == 1 ? "You went too far to the right. Try moving to the left more" :  "Your final land should be on zero!"
+
+                page?.assessmentStatus = .fail(hints: [str], solution: "You can jump 3 times to the right and then twice to the left!")
+            }
         }
     }
 }

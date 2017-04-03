@@ -15,7 +15,7 @@
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
 	<key>ImageReference</key>
-	<string>Images/LtC1-icon.png</string>
+	<string>leoBanner.jpg</string>
 	<key>Chapters</key>
 	<array>
 		<string>Document1.playgroundchapter</string>

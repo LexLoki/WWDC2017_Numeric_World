@@ -32,6 +32,8 @@ public class GameScene: SKScene {
     
     private var isRunning : Bool = false
     
+    private var hasJumps : Bool = false
+    
     private var holdFlags : [Int]!
     private var flags = [Flag]()
     
@@ -148,6 +150,11 @@ public class GameScene: SKScene {
         if holdFlags != nil{
             prepareFlags(numbers: holdFlags)
         }
+        if hasJumps{
+            player.position.x = 0
+            player.position.y = 0
+            hasJumps = false
+        }
     }
     
     func runFlags(movs : [[Int]]){
@@ -178,8 +185,16 @@ public class GameScene: SKScene {
         player.run(SKAction.sequence(actions)) {
             self.isRunning = false
             self.player.removeAction(forKey: "run")
-            self.messageSender?.sendMessage("finished")
+            let v = self.verifyFlags()
+            if v{
+                self.playSuccessSound()
+            }
+            self.messageSender?.sendMessage("finished",v)
         }
+    }
+    
+    func playSuccessSound(){
+        run(SKAction.playSoundFileNamed("Audio/success.mp3", waitForCompletion: false))
     }
     
     func verifyFlags() -> Bool{
@@ -214,8 +229,11 @@ public class GameScene: SKScene {
         }
     }
     
-    public func prepareFlags(n : Int){
+    public func prepareFlags(n : Int, putZero: Bool = false){
         var numbers = [Int]()
+        if putZero{
+            numbers.append(0)
+        }
         for i in 1...n{
             numbers.append(i)
         }
@@ -252,6 +270,52 @@ public class GameScene: SKScene {
         
         //-hidden code
         player.run(jumpSequence)
+    }
+    
+    func runJumps(jumps : [Int]){
+        isRunning = true
+        hasJumps = true
+        var actions = [SKAction]()
+        let jumpDuration : TimeInterval = 1.4
+        let anim = SKAction.animate(with: player.asset.jump, timePerFrame: jumpDuration/2)
+        let sound = SKAction.playSoundFileNamed("Audio/Boup.wav", waitForCompletion: false)
+        var pos = 0
+        for jump in jumps{
+            let d = numberDist*CGFloat(jump)/2
+            let moveUp = SKAction.moveBy(x: d, y: 100, duration: jumpDuration/2)
+            let moveDown = SKAction.moveBy(x: d, y: -100, duration: jumpDuration/2)
+            actions.append(SKAction.run({
+                self.player.xScale = jump<0 ? -1 : 1
+            }))
+            let group = SKAction.group([anim, sound, SKAction.sequence([moveUp,moveDown,SKAction.wait(forDuration: 0.2)])])
+            pos += jump
+            actions.append(group)
+            if pos<0 || pos>8{
+                break
+            }
+        }
+        let status = pos<0 ? -1 : pos>8 ? 1 : pos==0 ? 0 : 2
+        actions.append(SKAction.run({
+            self.messageSender?.sendMessageS("assert",status)
+            if status == 0{
+                self.playSuccessSound()
+            }
+        }))
+        let runningAction = SKAction.repeatForever(SKAction.animate(with: player.asset.running, timePerFrame: 0.2))
+        actions.append(SKAction.run({
+            self.player.run(runningAction, withKey: "run")
+        }))
+        let mov = Double(abs(pos))
+        actions.append( SKAction.run({  //scale direction
+            self.player.xScale = pos>0 ? -1 : 1
+        }))
+        actions.append( SKAction.moveTo(x: 0, duration: TimeInterval(mov/1.2)) ) //backing to zero
+        player.run(SKAction.sequence(actions)){
+            self.isRunning = false
+            self.hasJumps = false
+            self.player.removeAction(forKey: "run")
+            self.messageSender?.sendMessage("finished",false)
+        }
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

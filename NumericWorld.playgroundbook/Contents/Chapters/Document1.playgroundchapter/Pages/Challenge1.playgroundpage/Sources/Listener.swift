@@ -17,8 +17,12 @@ public class Listener : PlaygroundRemoteLiveViewProxyDelegate {
     
     /// Método que recebe mensagens enviadas pela LiveView (no caso GameView)
     public func remoteLiveViewProxy(_ remoteLiveViewProxy: PlaygroundRemoteLiveViewProxy, received message: PlaygroundValue){
-        let msg = message.toString()!
+        let msg = message.stringFromDict(withKey: "message")!
         if msg == "finished"{
+            let suc = message.booleanFromDict(withKey: "didSucceed")!
+            if suc{
+                page?.assessmentStatus = .pass(message: "### Nice job! \nYou were able to help Leo reordering the flags perfectly! \n\n[**Next Duty**](@next)")
+            }
             page?.finishExecution() //Para deixar o runCode voltar
         }
     }

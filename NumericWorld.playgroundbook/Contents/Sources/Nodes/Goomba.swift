@@ -12,20 +12,19 @@ class Goomba : SKNode{
     
     var wasHit = false
     
-    private static let textures : [SKTexture] = [
-        SKTexture(imageNamed: "frame_e-1"),
-        SKTexture(imageNamed: "frame_e-2"),
-        SKTexture(imageNamed: "frame_e-3"),
-        SKTexture(imageNamed: "frame_e-4"),
-        SKTexture(imageNamed: "frame_e-5"),
-        SKTexture(imageNamed: "frame_e-6"),
-        SKTexture(imageNamed: "frame_e-7"),
-        SKTexture(imageNamed: "frame_e-8")
-    ]
+    private static let textures : [SKTexture] = loadTextures()
     
     private static let sound = SKAction.playSoundFileNamed("Audio/Boup.wav", waitForCompletion: true)
     
     private let spriteNode : SKSpriteNode
+    
+    private static func loadTextures() -> [SKTexture]{
+        var sts = [SKTexture]()
+        for i in 1...8{
+            sts.append(SKTexture(imageNamed: "Enemy/frame_e-\(i)"))
+        }
+        return sts
+    }
     
     init(refWidth: CGFloat){
         let tex = Goomba.textures.first!

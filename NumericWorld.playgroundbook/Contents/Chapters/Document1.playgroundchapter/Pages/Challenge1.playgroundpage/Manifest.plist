@@ -4,12 +4,19 @@
 <dict>
 	<key>Hints</key>
 	<array>
-		<string>Try to do it</string>
+		<dict>
+			<key>Content</key>
+			<string>Positions are represented by numbers from 1 to 4, from left to right.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>You can run code multiple times, using only one switchFlags command each time (or do them all at once).</string>
+		</dict>
 	</array>
 	<key>Version</key>
 	<string>1.0</string>
 	<key>Name</key>
-	<string>Number order</string>
+	<string>Number Ordering</string>
 	<key>Description</key>
 	<string>Description</string>
 	<key>LiveViewMode</key>

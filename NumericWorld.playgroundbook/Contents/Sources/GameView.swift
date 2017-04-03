@@ -59,8 +59,19 @@ extension GameView: PlaygroundLiveViewMessageHandler {
     }
     
     ///Função chamada a partir da GameScene para enviar alguma mensagem para Contents.swift
-    public func sendMessage(_ msg: String){
-        let pv : PlaygroundValue = .string(msg)
+    public func sendMessage(_ msg: String, _ didSucceed: Bool){
+        let pv : PlaygroundValue = PlaygroundValue.dictionary([
+            "message" : .string(msg),
+            "didSucceed" : .boolean(didSucceed)
+        ])
+        send(pv)
+    }
+    
+    public func sendMessageS(_ msg: String, _ status: Int){
+        let pv : PlaygroundValue = PlaygroundValue.dictionary([
+            "message" : .string(msg),
+            "status" : .integer(status)
+            ])
         send(pv)
     }
     
@@ -88,6 +99,14 @@ extension GameView: PlaygroundLiveViewMessageHandler {
                 movs.append([pos[0].toInt()!,pos[1].toInt()!]) //Extrai-se os inteiros de cada PV
             }
             _scene.runFlags(movs: movs)
+            break
+        case "runJumps":
+            let arr = message.arrayFromDict(withKey: "jumps")!
+            var jumps = [Int]()
+            for v in arr{
+                jumps.append(v.toInt()!)
+            }
+            _scene.runJumps(jumps: jumps)
             break
         default:
             break

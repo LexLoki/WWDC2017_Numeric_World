@@ -7,44 +7,51 @@
 
 //#-end-hidden-code
 /*:
- Hello adventurer! This boy you see on your right is Leo, and he needs your help on his duties in the **numeric world**.
+When Leo is not working he likes to play around **jumping over** the numbers instead of **walking by** them. He calls it a jump game, and it has some rules:
+ - Leo always starts on number zero.
+ - When Leo jumps to the right, he always jump over one number. So if he jumps once he will land on 2. If he jumps twice he will land on 4.
+ - When Leo jumps to the left, he always jump over two numbers. For example: if he is at number 4 and jump to the left, he will land at 1.
+ - Leo needs to get out of zero by jumping around and then get back to it.
+ - If Leo goes past to zero (to the left), or past 8 (to the right) he loses the game and needs start again.
+ - Leo needs to jump at least once.
+
+ **Goal:** help Leo to jump some numbers and get back to zero!
  
- In the **numeric world**, is important for people to walk through numbers in ascending order. Sadly, sometimes heavy storms mess them around, giving us a wrong order. Could you help Leo fix them?
- 
- **Challenge:** Reorder the flags by completing the function.
- 
- As you can see (by dragging your finger) the numbers on the flags are not in ascending order as they should be. You can switch the flags by their positions using the command `switchFlags(fromPosition: Int, toPosition: Int)`. Below there is a function `reorderFlags` you should complete, using this command, to help Leo. Don't worry about doing it wrong, you can change the function as long as you want to and try again.
- * callout(Tip):
- Want to change your character? Tap on Leo to chose a new look.
+ Complete the ``jumpGame()`` [function](glossary://function) by giving Leo [commands](glossary://command) to jump, as much as you want:
+ - ``jumpRight()``: jumps 2 numbers to his right
+ - ``jumpLeft()``: jumps 3 numbers to his left
 */
 //#-hidden-code
 import PlaygroundSupport
 
-var movements = [[Int]]()
-func switchFlags(fromPosition flag1: Int, toPosition flag2: Int){
-    movements.append([flag1,flag2])
+var jumps = [Int]()
+
+func jumpRight(){
+    jumps.append(2)
+}
+func jumpLeft(){
+    jumps.append(-3)
 }
 
 //#-end-hidden-code
 
 //#-code-completion(everything, hide)
-//#-code-completion(identifier, show, switchFlags(fromPosition:toPosition:))
-func reorderFlags(){
+//#-code-completion(identifier, show, jumpLeft())
+//#-code-completion(identifier, show, jumpRight())
+func jumpGame(){
     //#-editable-code Tap to enter code
-    switchFlags(fromPosition: 2, toPosition: 3)
-    /*Right Answer:
-     switchFlags(fromPosition: 4, toPosition: 0)
-     switchFlags(fromPosition: 2, toPosition: 3)
-     switchFlags(fromPosition: 4, toPosition: 3)
-     switchFlags(fromPosition: 4, toPosition: 5)
-     switchFlags(fromPosition: 6, toPosition: 5)
-    */
     //#-end-editable-code
 }
 //#-hidden-code
 let page = PlaygroundPage.current
-page.needsIndefiniteExecution = true //Necessario para deixar a opção "Stop" no lugar de "Run Code"
-let listener = Listener(page: page) //Inicializa a classe para receber mensagens da LiveView (ver em Sources/Listener) (para nesse caso, por exemplo, saber quando tirar o "Stop" e colocar de volta o "Run Code"
-reorderFlags() //Chama a função completada pelo jogador para preencher movements
-runFlags(movements: movements) //Envia os movimentos para serem atualizados na LiveView (ver função runFlags em Sources/Commands.swift)
+let listener : Listener
+jumpGame()
+if jumps.count == 0{
+    page.assessmentStatus = .fail(hints: ["Leo needs to jump at least once! Enter your commands in `jumpGame`"], solution: nil)
+}
+else{
+    page.needsIndefiniteExecution = true //Necessario para deixar a opção "Stop" no lugar de "Run Code"
+    listener = Listener(page: page)
+    runJumps(jumps: jumps)
+}
 //#-end-hidden-code

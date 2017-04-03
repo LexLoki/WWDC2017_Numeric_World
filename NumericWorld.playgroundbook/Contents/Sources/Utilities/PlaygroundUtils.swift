@@ -41,6 +41,16 @@ extension PlaygroundValue {
         return nil
     }
     
+    ///Extrai array pv de um dicionario pv
+    public func booleanFromDict(withKey key: String) -> Bool? {
+        if case .dictionary(let dict) = self,
+            let value = dict[key],
+            case .boolean(let bol) = value {
+            return bol
+        }
+        return nil
+    }
+    
     ///Extrai inteiro de pv
     public func toInt() -> Int?{
         if case .integer(let num) = self{
